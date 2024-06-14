@@ -8,8 +8,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
-	"github.com/tendant/simple-user/auth"
 	"github.com/jinzhu/copier"
+	"github.com/tendant/simple-user/auth"
 )
 
 type Handle struct {
@@ -116,6 +116,8 @@ func (h Handle) GetTokenRefresh(w http.ResponseWriter, r *http.Request, params G
 
 	// FIXME: validate refreshToken
 	jwt := auth.Jwt{}
+	
+	// FIXME: fix create token string
 	accessToken, err := jwt.CreateAccessToken("")
 	if err != nil {
 		slog.Error("Failed to create access token", params.RefreshToken, "err", err)
@@ -125,7 +127,8 @@ func (h Handle) GetTokenRefresh(w http.ResponseWriter, r *http.Request, params G
 		}
 	}
 
-	refreshToken, err := jwt.CreateAccessToken("")
+	// FIXME: fix create token string
+	refreshToken, err := jwt.CreateRefreshToken("")
 	if err != nil {
 		slog.Error("Failed to create refresh token", params.RefreshToken, "err", err)
 		return &Response{
